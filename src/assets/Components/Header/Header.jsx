@@ -4,8 +4,6 @@ const Header = () => {
   const links = (
     <>
       <li> <NavLink to='/'>Home</NavLink> </li>
-      <li> <NavLink to='/signUp'>Sign Up</NavLink> </li>
-      <li> <NavLink to='/signIn'>Sign In</NavLink> </li>
     </>
   );
 
@@ -36,13 +34,14 @@ const Header = () => {
             {links}
           </ul>
         </div>
-        <a className="btn btn-ghost text-xl">daisyUI</a>
+        <NavLink className="btn btn-ghost text-xl" to='/'>Email Password Auth</NavLink>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{links}</ul>
       </div>
       <div className="navbar-end">
-      <NavLink to='/signUp'>Sign Up</NavLink>
+      <NavLink className='btn mr-2' to='/signUp'>Sign Up</NavLink>
+      <NavLink className='btn mr-' to='/signIn'>Sign In</NavLink>
       </div>
     </div>
   );
