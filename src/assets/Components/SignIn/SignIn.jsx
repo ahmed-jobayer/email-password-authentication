@@ -1,10 +1,25 @@
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { NavLink } from "react-router-dom";
+import auth from "../../../firebase/firebase.config";
 
 const SignIn = () => {
+
+   const handleSignIn = e =>{
+    e.preventDefault()
+    const email = e.target.email.value
+    const password = e.target.password.value
+    console.log(email,password)
+    signInWithEmailAndPassword(auth, email, password)
+    .then((result)=> {
+        console.log(result.user)
+    })
+    .catch(error =>console.log(error))
+   }
+
   return (
     <div className="hero min-h-screen bg-base-200">
       <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-        <form className="card-body">
+        <form onSubmit={handleSignIn} className="card-body">
           <div className="form-control">
             <label className="label">
               <span className="label-text">Email</span>
@@ -35,7 +50,7 @@ const SignIn = () => {
             </label>
           </div>
           <div className="form-control mt-6">
-            <button className="btn btn-primary">Sign In</button>
+            <button type="submit" className="btn btn-primary">Sign In</button>
           </div>
         </form>
         <div className="text-center mb-4">Do not have an account? <NavLink to='/signUp'>Sign Up</NavLink> </div>
