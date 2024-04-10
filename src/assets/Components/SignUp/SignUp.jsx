@@ -15,6 +15,7 @@ const SignUp = () => {
     const accepted = e.target.terms.checked;
     console.log(email, password);
 
+    // reset error or success
     setSignUpError("");
     setSuccess("");
 

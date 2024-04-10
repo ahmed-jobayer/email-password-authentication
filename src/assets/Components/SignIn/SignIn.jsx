@@ -1,20 +1,32 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { NavLink } from "react-router-dom";
 import auth from "../../../firebase/firebase.config";
+import { useState } from "react";
 
 const SignIn = () => {
+  const [signUpError, setSignUpError] = useState();
+  const [success, setSuccess] = useState();
 
-   const handleSignIn = e =>{
-    e.preventDefault()
-    const email = e.target.email.value
-    const password = e.target.password.value
-    console.log(email,password)
+  const handleSignIn = (e) => {
+    e.preventDefault();
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    console.log(email, password);
+
+    // reset error or success
+    setSignUpError("");
+    setSuccess("");
+
     signInWithEmailAndPassword(auth, email, password)
-    .then((result)=> {
-        console.log(result.user)
-    })
-    .catch(error =>console.log(error))
-   }
+      .then((result) => {
+        console.log(result.user);
+        setSuccess("User signed in successfully");
+      })
+      .catch((error) => {
+        console.log(error);
+        setSignUpError(error.message);
+      });
+  };
 
   return (
     <div className="hero min-h-screen bg-base-200">
@@ -50,10 +62,18 @@ const SignIn = () => {
             </label>
           </div>
           <div className="form-control mt-6">
-            <button type="submit" className="btn btn-primary">Sign In</button>
+            <button type="submit" className="btn btn-primary">
+              Sign In
+            </button>
           </div>
         </form>
-        <div className="text-center mb-4">Do not have an account? <NavLink to='/signUp'>Sign Up</NavLink> </div>
+        <div className="text-center px-8 pb-4">
+          {signUpError && <p className="text-red-500">{signUpError}</p>}
+          {success && <p className="text-green-500 ">{success}</p>}
+        </div>
+        <div className="text-center mb-4">
+          Do not have an account? <NavLink to="/signUp">Sign Up</NavLink>{" "}
+        </div>
       </div>
     </div>
   );
